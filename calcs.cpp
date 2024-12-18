@@ -86,5 +86,5 @@ void calculate_minimum_monthly_with_fixed_term(double loan_amt, double interest,
     top = decimal_interest * pow(1 + decimal_interest, num_months);
     bottom = pow(1 + decimal_interest, num_months) - 1;
 
-    cout << "Minimum Monthly Payments to pay off $" << loan_amt << " in " << num_months << " months: $" << loan_amt * top / bottom << " per month." << endl;
+    cout << "Minimum Monthly Payments to pay off $" << loan_amt << " at " << interest << "%  in " << num_months << " months is: $" << loan_amt * top / bottom << " per month." << endl;
 }
