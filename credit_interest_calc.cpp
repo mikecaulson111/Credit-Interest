@@ -8,7 +8,8 @@ using namespace std;
 
 
 int main(int argc, char* argv[]) {
-    // cout << argc << argv[1] << endl;
+
+    // Global Variables for entire project
     string input = "";
     double loan_amt = 0;
     double interest_rate = 0.0;
@@ -17,15 +18,18 @@ int main(int argc, char* argv[]) {
     double average_days_month = ((31*7)+(30*4)+(28)) / 12;
     bool print_years = false;
     bool daily_interest = false;
+
+    // Get input for principle loan amount
     cout << "Please enter the current loan amount (can be integer or double):" << endl;
     getline(cin, input, '\n');
-
     loan_amt = stod(input);
     
+    // Get input for interest rate
     cout << "Please enter the interest rate (as a decimal i.e. 8.49):" << endl;
     getline(cin, input, '\n');
     interest_rate = stod(input);
 
+    // Get input for amount paid each month
     cout << "Please enter the amount you pay every month (can be integer or decimal):" << endl;
     getline(cin, input, '\n');
     month_payments = stod(input);
@@ -33,6 +37,7 @@ int main(int argc, char* argv[]) {
     cout << "$" << std::fixed << std::setprecision(2) << loan_amt << " at " << interest_rate << "% paying $" << month_payments << endl;
     loan_hold = loan_amt;
 
+    // Calculate if loan can ever be paid off with current payments
     if ((loan_amt - month_payments) * ((interest_rate / 100.0) / 12) >= month_payments ) {
         cout << "*** PAYING THAT AMOUNT PER MONTH YOU WILL NEVER PAY OFF YOUR LOAN ***" << endl;
         return 0;
