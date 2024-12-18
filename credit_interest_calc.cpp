@@ -9,7 +9,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     // cout << argc << argv[1] << endl;
-    string temp = "";
+    string input = "";
     double loan_amt = 0;
     double interest_rate = 0.0;
     double month_payments = 0;
@@ -18,17 +18,17 @@ int main(int argc, char* argv[]) {
     bool print_years = false;
     bool daily_interest = false;
     cout << "Please enter the current loan amount (can be integer or double):" << endl;
-    getline(cin, temp, '\n');
+    getline(cin, input, '\n');
 
-    loan_amt = stod(temp);
+    loan_amt = stod(input);
     
     cout << "Please enter the interest rate (as a decimal i.e. 8.49):" << endl;
-    getline(cin, temp, '\n');
-    interest_rate = stod(temp);
+    getline(cin, input, '\n');
+    interest_rate = stod(input);
 
     cout << "Please enter the amount you pay every month (can be integer or decimal):" << endl;
-    getline(cin, temp, '\n');
-    month_payments = stod(temp);
+    getline(cin, input, '\n');
+    month_payments = stod(input);
 
     cout << "$" << std::fixed << std::setprecision(2) << loan_amt << " at " << interest_rate << "% paying $" << month_payments << endl;
     loan_hold = loan_amt;
@@ -95,6 +95,6 @@ int main(int argc, char* argv[]) {
         months += 1;
     }
     cout << "Loan paid off in " << months - 1 << " months with total interest paid $" << total_interest << " on the initial $" << loan_hold << " loan" << endl;
-    
+
     return 0;
 }
