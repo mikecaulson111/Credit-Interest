@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
             // Get input for principle loan amount
             cout << "Please enter the current loan amount (can be integer or double):" << endl;
             getline(cin, input, '\n');
-            if (is_numb(input))
+            if (is_numb(input, true))
             {
                 loan_amt = stod(input);
             }
@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
             // Get input for interest rate
             cout << "Please enter the interest rate (as a decimal i.e. 8.49):" << endl;
             getline(cin, input, '\n');
-            if (is_numb(input))
+            if (is_numb(input, true))
             {
                 interest_rate = stod(input);
             }
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
             // Get input for amount paid each month
             cout << "Please enter the amount you pay every month (can be integer or decimal):" << endl;
             getline(cin, input, '\n');
-            if (is_numb(input))
+            if (is_numb(input, true))
             {
                 month_payments = stod(input);
             }
@@ -83,7 +83,7 @@ int main(int argc, char* argv[]) {
             // Get input for principle loan amount
             cout << "Please enter the current loan amount (can be integer or double):" << endl;
             getline(cin, input, '\n');
-            if (is_numb(input))
+            if (is_numb(input, true))
             {
                 loan_amt = stod(input);
             }
@@ -91,15 +91,16 @@ int main(int argc, char* argv[]) {
             // Get input for interest rate
             cout << "Please enter the interest rate (as a decimal i.e. 8.49):" << endl;
             getline(cin, input, '\n');
-            if (is_numb(input))
+            if (is_numb(input, true))
             {
+                cout << "MJC MJC" << endl;
                 interest_rate = stod(input);
             }
 
             // Get input for amount paid each month
             cout << "Please enter the number of months that the loan term is for:" << endl;
             getline(cin, input, '\n');
-            if (is_numb(input))
+            if (is_numb(input, true))
             {
                 num_months = stod(input);
             }
