@@ -8,11 +8,10 @@
 
 using namespace std;
 
-
-
-void calculate_total_with_fixed_payments(double loan_amt, double interest_rate, double monthly_payments,
-                                         bool print_years, bool daily_interest_used)
+AMORTIZATION_S amortization_print(double loan_amt, double interest_rate, double monthly_payments,
+                          bool print_years, bool daily_interest_used, bool amortization)
 {
+    AMORTIZATION_S amortization_ret = {};
 
     // global calulation variables
     double total_interest = 0;
@@ -20,7 +19,6 @@ void calculate_total_with_fixed_payments(double loan_amt, double interest_rate, 
     double year_tot_paid = 0;
     double year_tot_interest = 0;
     double average_days_month = (365. / 12.);
-    double loan_hold = loan_amt;
 
     while (loan_amt > 0) {
 
@@ -57,26 +55,42 @@ void calculate_total_with_fixed_payments(double loan_amt, double interest_rate, 
         }
 
         // If we are printing
-        if (!print_years) {
-            cout << "Month " << months << " Balance: $" << loan_amt << " Interest acrued: $" << accumulated_interest << endl;
-        } else {
-            if (months % 12 == 0) {
-                cout << "Year " << months / 12 << " Balance: $" << loan_amt << " Interest acrued throught the year: $" << year_tot_interest << " Total paid off throught the year: $" << year_tot_paid << endl;
-                year_tot_paid = 0;
-                year_tot_interest = 0;
-            } else if (print_years && !daily_interest_used) {
-                year_tot_paid += monthly_payments;
-                year_tot_interest += daily_interest;
+        if (amortization) {
+            if (!print_years) {
+                cout << "Month " << months << " Balance: $" << loan_amt << " Interest acrued: $" << accumulated_interest << " -> Paid: $" << ((loan_amt + accumulated_interest < monthly_payments) ? (loan_amt+accumulated_interest) : monthly_payments) << endl;
+            } else {
+                if (months % 12 == 0) {
+                    cout << "Year " << months / 12 << " Balance: $" << loan_amt << " Interest acrued throught the year: $" << year_tot_interest << " Total paid off throught the year: $" << year_tot_paid << endl;
+                    year_tot_paid = 0;
+                    year_tot_interest = 0;
+                } else if (print_years && !daily_interest_used) {
+                    year_tot_paid += monthly_payments;
+                    year_tot_interest += daily_interest;
+                }
             }
         }
         months += 1;
     }
-    cout << "Loan paid off in " << months - 1 << " months with total interest paid $" << total_interest << " on the initial $" << loan_hold << " loan" << endl;
-    cout << "This equals a total repayment of: $" << total_interest + loan_hold << "." << endl;
+    amortization_ret.months       = months;
+    amortization_ret.interest_amt = total_interest;
+
+    return amortization_ret;
+}
+
+void calculate_total_with_fixed_payments(double loan_amt, double interest_rate, double monthly_payments,
+                                         bool print_years, bool daily_interest_used, bool amortization)
+{
+    AMORTIZATION_S amort = amortization_print(loan_amt, interest_rate, monthly_payments, print_years, daily_interest_used, amortization);
+
+    
+    cout << "\n\n--------------------------------------------------------------------------" << endl;
+    cout << "Loan paid off in " << amort.months - 1 << " months with total interest paid $" << amort.interest_amt << " on the initial $" << loan_amt << " loan" << endl;
+    cout << "This equals a total repayment of: $" << amort.interest_amt + loan_amt << "." << endl;
+    cout << "--------------------------------------------------------------------------" << endl;
 }
 
 
-void calculate_minimum_monthly_with_fixed_term(double loan_amt, double interest, double num_months)
+void calculate_minimum_monthly_with_fixed_term(double loan_amt, double interest, double num_months, bool amortization)
 {
     double top = 0;
     double bottom = 0;
@@ -85,6 +99,12 @@ void calculate_minimum_monthly_with_fixed_term(double loan_amt, double interest,
 
     top = decimal_interest * pow(1 + decimal_interest, num_months);
     bottom = pow(1 + decimal_interest, num_months) - 1;
+    if (amortization)
+    {
+        amortization_print(loan_amt, interest, (loan_amt * top / bottom), false, false, amortization);
+    }
 
+    cout << "\n\n--------------------------------------------------------------------------" << endl;
     cout << "Minimum Monthly Payments to pay off $" << loan_amt << " at " << interest << "%  in " << num_months << " months is: $" << loan_amt * top / bottom << " per month." << endl;
+    cout << "--------------------------------------------------------------------------" << endl;
 }

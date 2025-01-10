@@ -20,6 +20,7 @@ int main(int argc, char* argv[]) {
     bool print_years = false;
     bool daily_interest_used = false;
     int choice = 0;
+    bool amortization = false;
 
     while (true)
     {
@@ -35,6 +36,12 @@ int main(int argc, char* argv[]) {
 
         if (choice == 1)
         {
+            cout << "Would you like the amortization schedule to display? (Y/N)" << endl;
+            getline(cin, input, '\n');
+            if (input == "Y" || input == "y" || input == "1")
+            {
+                amortization = true;
+            }
             // Get input for principle loan amount
             cout << "Please enter the current loan amount (can be integer or double):" << endl;
             getline(cin, input, '\n');
@@ -76,10 +83,16 @@ int main(int argc, char* argv[]) {
             }
 
             // Do the calculation
-            calculate_total_with_fixed_payments( loan_amt, interest_rate, month_payments, print_years, daily_interest_used);
+            calculate_total_with_fixed_payments( loan_amt, interest_rate, month_payments, print_years, daily_interest_used, amortization);
         }
         else if ( choice == 2 )
         {
+            cout << "Would you like the amortization schedule to display? (Y/N)" << endl;
+            getline(cin, input, '\n');
+            if (input == "Y" || input == "y" || input == "1")
+            {
+                amortization = true;
+            }
             // Get input for principle loan amount
             cout << "Please enter the current loan amount (can be integer or double):" << endl;
             getline(cin, input, '\n');
@@ -93,7 +106,6 @@ int main(int argc, char* argv[]) {
             getline(cin, input, '\n');
             if (is_numb(input, true))
             {
-                cout << "MJC MJC" << endl;
                 interest_rate = stod(input);
             }
 
@@ -109,7 +121,7 @@ int main(int argc, char* argv[]) {
             cout << "$" << std::fixed << std::setprecision(2) << loan_amt << " at " << interest_rate << "% for " << num_months << " months" << endl;
 
             // Perform calculation
-            calculate_minimum_monthly_with_fixed_term( loan_amt, interest_rate, num_months );
+            calculate_minimum_monthly_with_fixed_term( loan_amt, interest_rate, num_months, amortization );
         }
         else
         {
@@ -122,6 +134,7 @@ int main(int argc, char* argv[]) {
         cout << endl;
         cout << endl;
         cout << endl;
+        amortization = false;
     }
 
     return 0;
