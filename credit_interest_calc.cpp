@@ -21,13 +21,15 @@ int main(int argc, char* argv[]) {
     bool daily_interest_used = false;
     int choice = 0;
     bool amortization = false;
+    double income = 0;
 
     while (true)
     {
         cout << "Please choose one of these options to perform:" << endl;
         cout << "[1] Calculate total payoff amount" << endl;
         cout << "[2] Calculate minimum monthly payment with fixed term" << endl;
-        cout << "[3] Quit" << endl;
+        cout << "[3] Worst case tax case (no deductions)" << endl;
+        cout << "[4] Quit" << endl;
         getline(cin, input, '\n');
         if (is_numb(input)) {
             choice = stod(input);
@@ -122,6 +124,17 @@ int main(int argc, char* argv[]) {
 
             // Perform calculation
             calculate_minimum_monthly_with_fixed_term( loan_amt, interest_rate, num_months, amortization );
+        }
+        else if (3 == choice)
+        {
+            // Get the income number from user
+            cout << "Please enter your annual income (without commas):" << endl;
+            getline(cin, input, '\n');
+            if (is_numb(input, true))
+            {
+                income = stod(input);
+            }
+            calculate_worst_taxes(income);
         }
         else
         {

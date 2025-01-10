@@ -8,6 +8,26 @@
 
 using namespace std;
 
+#define NUM_BRACKETS 7
+
+/*
+0 - 11,925        : 10%
+11,925 - 48,475   : 12%
+48,475 - 103,350  : 22%
+103,350 - 197,300 : 24%
+197,300 - 250,525 : 32%
+250,525 - 626,350 : 35%
+626,350+          : 37%
+*/
+TAX_BRACKET_S brackets[] = { {0, 11925, 10},
+                             {11925, 48475, 12},
+                             {48475, 103350, 22},
+                             {103350, 197300, 24},
+                             {197300, 250525, 32},
+                             {250525, 626350, 35},
+                             {626350, 1000000000000, 37}
+                           };
+
 AMORTIZATION_S amortization_print(double loan_amt, double interest_rate, double monthly_payments,
                           bool print_years, bool daily_interest_used, bool amortization)
 {
@@ -108,3 +128,49 @@ void calculate_minimum_monthly_with_fixed_term(double loan_amt, double interest,
     cout << "Minimum Monthly Payments to pay off $" << loan_amt << " at " << interest << "%  in " << num_months << " months is: $" << loan_amt * top / bottom << " per month." << endl;
     cout << "--------------------------------------------------------------------------" << endl;
 }
+
+void calculate_worst_taxes(double income)
+{
+    // double tincome = income;
+    double total_taxes = 0;
+
+    for (int i = 0; i < NUM_BRACKETS; i++)
+    {
+        cout << brackets[i].max << endl;
+        if (income > brackets[i].max)
+        {
+            // calculate total amount in this bracket and add to total
+            cout << "RIGHT HERE" << endl;
+        }
+        else
+        {
+            // calculate total up to the number minus min of this category
+            cout << "NOPE HERE" << endl;
+            break;
+        }
+    }
+    cout << "\n\n--------------------------------------------------------------------------" << endl;
+    cout << "Total in worst case taxes: $" << total_taxes << endl;
+    cout << "-------------------------------------------------------------------------" << endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
