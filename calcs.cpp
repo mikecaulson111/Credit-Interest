@@ -70,7 +70,7 @@ AMORTIZATION_S amortization_print(double loan_amt, double interest_rate, double 
         loan_amt = holding_amount + accumulated_interest - monthly_payments;
 
 
-        if (loan_amt < 0) {
+        if (loan_amt <= 0) {
             loan_amt = 0;
         }
         if (daily_interest < 0) {
@@ -93,6 +93,10 @@ AMORTIZATION_S amortization_print(double loan_amt, double interest_rate, double 
             }
         }
         months += 1;
+        if (loan_amt + accumulated_interest < monthly_payments)
+        {
+            break;
+        }
     }
     amortization_ret.months       = months;
     amortization_ret.interest_amt = total_interest;
