@@ -3,6 +3,7 @@
 #include <string>
 #include <cstring>
 #include "calcs.hpp"
+#include "assets.hpp"
 #include "utils.hpp"
 
 using namespace std;
@@ -24,13 +25,16 @@ int main(int argc, char* argv[]) {
     double income = 0;
     int filing_status = 1;
 
+    AssetsList* p_list = NULL;
+
     while (true)
     {
         cout << "Please choose one of these options to perform:" << endl;
         cout << "[1] Calculate total payoff amount" << endl;
         cout << "[2] Calculate minimum monthly payment with fixed term" << endl;
         cout << "[3] Worst case tax case (only standard deduction)" << endl;
-        cout << "[4] Quit" << endl;
+        cout << "[4] Assets list" << endl;
+        cout << "[5] Quit" << endl;
         getline(cin, input, '\n');
         if (is_numb(input)) {
             choice = stod(input);
@@ -144,6 +148,10 @@ int main(int argc, char* argv[]) {
                 filing_status = stoi(input);
             }
             calculate_worst_taxes(income, filing_status);
+        }
+        else if (4 == choice)
+        {
+            assets_initiate(p_list);
         }
         else
         {
