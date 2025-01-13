@@ -8,7 +8,30 @@ using namespace std;
 
 void AssetsList::add_item(string name, bool is_equity, double amount)
 {
-    cout << name << is_equity << amount << endl;
+    // cout << name << is_equity << amount << endl;
+    ASSET_ITEM_S asset = {.name = name,
+                          .is_equity = is_equity,
+                          .amount = amount};
+
+    items.push_back(asset);
+}
+
+void AssetsList::edit_item(string name)
+{
+    cout << name << endl;
+}
+
+void AssetsList::delete_item(string name)
+{
+    cout << name << endl;
+}
+
+void AssetsList::print_items()
+{
+    for (long unsigned int i = 0; i < items.size(); i++)
+    {
+        cout << items.at(i).name << endl;
+    }
 }
 
 void assets_initiate(AssetsList* p_list)
@@ -59,7 +82,7 @@ void assets_initiate(AssetsList* p_list)
                 }
             }
 
-            cout << "Please enter the amount" << (is_equity ? " that it is worth:" : " that you owe:\n$");
+            cout << "Please enter the amount" << (is_equity ? " that it is worth:\n$" : " that you owe:\n$");
             getline(cin, input, '\n');
             if (is_numb(input, true))
             {
@@ -85,6 +108,7 @@ void assets_initiate(AssetsList* p_list)
         else if (4 == choice)
         {
             // something
+            p_list->print_items();
         }
         else if (5 == choice)
         {

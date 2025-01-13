@@ -16,8 +16,11 @@ typedef struct
 class AssetsList {
     private:
         vector<ASSET_ITEM_S> items;
+        bool is_item_in_list(string name);
     public:
         void add_item(string name, bool is_equity=false, double amount=0.0);
+        void edit_item(string name);
+        void delete_item(string name);
         void print_items();
 };
 
