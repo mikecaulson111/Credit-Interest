@@ -9,6 +9,7 @@
 using namespace std;
 
 #define NUM_BRACKETS 7
+#define STANDARD_DEDUCTION 14600
 
 /*
 0 - 11,925        : 10%
@@ -133,24 +134,34 @@ void calculate_worst_taxes(double income)
 {
     // double tincome = income;
     double total_taxes = 0;
+    double temp = 0;
+
+    // standard decuction:
+    income  -= STANDARD_DEDUCTION;
 
     for (int i = 0; i < NUM_BRACKETS; i++)
     {
-        cout << brackets[i].max << endl;
         if (income > brackets[i].max)
         {
             // calculate total amount in this bracket and add to total
-            cout << "RIGHT HERE" << endl;
+            temp = brackets[i].max - brackets[i].min;
+            temp *= (brackets[i].percent / 100.);
+            total_taxes += temp;
         }
         else
         {
             // calculate total up to the number minus min of this category
-            cout << "NOPE HERE" << endl;
+            temp = income - brackets[i].min;
+            temp *= (brackets[i].percent / 100.);
+            total_taxes += temp;
             break;
         }
     }
+    // check that total_taxes is not less than 0, if so, set to 0:
+    total_taxes = total_taxes < 0 ? 0 : total_taxes;
+
     cout << "\n\n--------------------------------------------------------------------------" << endl;
-    cout << "Total in worst case taxes: $" << total_taxes << endl;
+    cout << "Total in worst case taxes (with standard deduction): $" << total_taxes << endl;
     cout << "-------------------------------------------------------------------------" << endl;
 }
 

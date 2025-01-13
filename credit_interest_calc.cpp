@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
         cout << "Please choose one of these options to perform:" << endl;
         cout << "[1] Calculate total payoff amount" << endl;
         cout << "[2] Calculate minimum monthly payment with fixed term" << endl;
-        cout << "[3] Worst case tax case (no deductions)" << endl;
+        cout << "[3] Worst case tax case (only standard deduction)" << endl;
         cout << "[4] Quit" << endl;
         getline(cin, input, '\n');
         if (is_numb(input)) {
