@@ -9,7 +9,9 @@
 using namespace std;
 
 #define NUM_BRACKETS 7
-#define STANDARD_DEDUCTION 14600
+#define STANDARD_DEDUCTION_SINGLE 14600
+#define STANDARD_DEDUCTION_JOINT 29200
+#define STANDARD_DEDUCTION_HEAD 21900
 
 /*
 0 - 11,925        : 10%
@@ -130,14 +132,26 @@ void calculate_minimum_monthly_with_fixed_term(double loan_amt, double interest,
     cout << "--------------------------------------------------------------------------" << endl;
 }
 
-void calculate_worst_taxes(double income)
+void calculate_worst_taxes(double income, int filing_status)
 {
     // double tincome = income;
     double total_taxes = 0;
     double temp = 0;
 
     // standard decuction:
-    income  -= STANDARD_DEDUCTION;
+    switch (filing_status)
+    {
+        case 2:
+            income -= STANDARD_DEDUCTION_JOINT;
+            break;
+        case 3:
+            income -= STANDARD_DEDUCTION_HEAD;
+            break;
+        case 1:  /* fallthrough */
+        default:
+            income -= STANDARD_DEDUCTION_SINGLE;
+            break;
+    }
 
     for (int i = 0; i < NUM_BRACKETS; i++)
     {

@@ -22,6 +22,7 @@ int main(int argc, char* argv[]) {
     int choice = 0;
     bool amortization = false;
     double income = 0;
+    int filing_status = 1;
 
     while (true)
     {
@@ -134,7 +135,15 @@ int main(int argc, char* argv[]) {
             {
                 income = stod(input);
             }
-            calculate_worst_taxes(income);
+            
+            // Get filing status:
+            cout << "Please enter your Filing Status:\n[1] Single\n[2] Joint\n[3] Head of Household" << endl;
+            getline(cin, input, '\n');
+            if (is_numb(input, false))
+            {
+                filing_status = stoi(input);
+            }
+            calculate_worst_taxes(income, filing_status);
         }
         else
         {
