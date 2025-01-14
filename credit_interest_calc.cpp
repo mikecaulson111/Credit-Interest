@@ -10,16 +10,13 @@ using namespace std;
 
 
 
-int main(int argc, char* argv[]) {
+int main() {
 
     // Global Variables for entire project
     string input = "";
     double loan_amt = 0;
     double interest_rate = 0.0;
-    double month_payments = 0;
     double num_months = 0;
-    bool print_years = false;
-    bool daily_interest_used = false;
     int choice = 0;
     bool amortization = false;
     double income = 0;
@@ -44,54 +41,8 @@ int main(int argc, char* argv[]) {
 
         if (choice == 1)
         {
-            cout << "Would you like the amortization schedule to display? (Y/N)" << endl;
-            getline(cin, input, '\n');
-            if (input == "Y" || input == "y" || input == "1")
-            {
-                amortization = true;
-            }
-            // Get input for principle loan amount
-            cout << "Please enter the current loan amount (can be integer or double):" << endl;
-            getline(cin, input, '\n');
-            if (is_numb(input, true))
-            {
-                loan_amt = stod(input);
-            }
-            
-            // Get input for interest rate
-            cout << "Please enter the interest rate (as a decimal i.e. 8.49):" << endl;
-            getline(cin, input, '\n');
-            if (is_numb(input, true))
-            {
-                interest_rate = stod(input);
-            }
-
-            // Get input for amount paid each month
-            cout << "Please enter the amount you pay every month (can be integer or decimal):" << endl;
-            getline(cin, input, '\n');
-            if (is_numb(input, true))
-            {
-                month_payments = stod(input);
-            }
-
-            cout << "$" << std::fixed << std::setprecision(2) << loan_amt << " at " << interest_rate << "% paying $" << month_payments << endl;
-
-            // Calculate if loan can ever be paid off with current payments
-            if ((loan_amt - month_payments) * ((interest_rate / 100.0) / 12) >= month_payments ) {
-                cout << "*** PAYING THAT AMOUNT PER MONTH YOU WILL NEVER PAY OFF YOUR LOAN ***" << endl;
-                return 0;
-            }
-            
-            if (argc > 1) {
-                if (0 == strcmp(argv[1], "-y")) {
-                    print_years = true;
-                } else if (0 == strcmp(argv[1], "-d")) {
-                    daily_interest_used = true;
-                }
-            }
-
             // Do the calculation
-            calculate_total_with_fixed_payments( loan_amt, interest_rate, month_payments, print_years, daily_interest_used, amortization);
+            calculate_total_with_fixed_payments();
         }
         else if ( choice == 2 )
         {
