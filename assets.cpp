@@ -148,7 +148,7 @@ void AssetsList::print_items()
         cout << "|" << endl;
     }
     cout << "--------------------------------------------------------|" << endl;
-    cout << left << setw(25) << "Total Assets" << " " << setw(10) << " " << " $" << setw(18) << total_assets << "|" << endl;
+    cout << left << setw(25) << "Total Assets" << " " << setw(10) << " " << " $" << (total_assets > 0 ? "\033[32m" : "\033[31m") << total_assets << "\033[0m" << endl;
     cout << "\n\n\n" << endl;
 }
 
