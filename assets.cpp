@@ -6,6 +6,28 @@
 
 using namespace std;
 
+int AssetsList::is_item_in_list(string name)
+{
+    for (long unsigned int i = 0; i < items.size(); i++)
+    {
+        if (name == items.at(i).name)
+        {
+            return (int)i;
+        }
+    }
+    return -1;
+}
+
+void AssetsList::calculate_total_assets()
+{
+    double temp = 0;
+    for (long unsigned int i = 0; i < items.size(); i++)
+    {
+        temp += ((items.at(i).is_equity ? 1 : -1) * items.at(i).amount);
+    }
+    total_assets = temp;
+}
+
 void AssetsList::add_item(string name, bool is_equity, double amount)
 {
     // cout << name << is_equity << amount << endl;
@@ -14,24 +36,102 @@ void AssetsList::add_item(string name, bool is_equity, double amount)
                           .amount = amount};
 
     items.push_back(asset);
+    calculate_total_assets();
 }
 
 void AssetsList::edit_item(string name)
 {
-    cout << name << endl;
+    string input;
+    double temp_amount;
+    int pos = -1;
+
+    pos = is_item_in_list(name);
+    if (-1 != pos)
+    {
+        cout << "What would you like to do with " << name  << "?" << endl;
+        cout << "[1] Edit name\n[2] Edit equity\n[3] Edit amount" << endl;
+        getline(cin, input, '\n');
+        if (is_numb(input))
+        {
+            int temp = stoi(input);
+
+            if (1 == temp)
+            {
+                cout << "Enter the new name now:" << endl;
+                getline(cin, input, '\n');
+                items.at(pos).name = input;
+            }
+            else if (2 == temp)
+            {
+                cout << "Enter the new value for equity/liability\n[1] Equity\n[2] Liability" << endl;
+                getline(cin, input, '\n');
+                if (is_numb(input))
+                {
+                    if (1 == stoi(input))
+                    {
+                        items.at(pos).is_equity = true;
+                    }
+                    else if (2 == stoi(input))
+                    {
+                        items.at(pos).is_equity = false;
+                    }
+                    else
+                    {
+                        cout << "Not a valid option: " << stoi(input) << " enter only 1 or 2 next time" << endl;
+                    }
+                }
+            }
+            else if (3 == temp)
+            {
+                cout << "Please enter the new amount\n$";
+                getline(cin, input, '\n');
+                if (is_numb(input, true))
+                {
+                    temp_amount = stod(input);
+                    items.at(pos).amount = temp_amount;
+                }
+                else
+                {
+                    cout << "Please only enter a number (double) for the amount" << endl;
+                }
+            }
+
+        }
+        else
+        {
+            cout << "Please only enter a number next time" << endl;
+        }
+        calculate_total_assets();
+    }
+    else
+    {
+        cout << name << " is not in the list of items" << endl;
+    }
 }
 
 void AssetsList::delete_item(string name)
 {
     cout << name << endl;
+    calculate_total_assets();
 }
 
 void AssetsList::print_items()
 {
+    cout << "\n\n\n" << endl;
+    cout << left << setw(25) << "NAME" << "|" << setw(10) << "EQUITY" << "|" << setw(18) << "AMOUNT" << " |" << endl;
     for (long unsigned int i = 0; i < items.size(); i++)
     {
-        cout << items.at(i).name << endl;
+        cout << "-------------------------|----------|-------------------|" << endl;
+        cout << left << setw(25) << items.at(i).name;
+        cout << "|";
+        cout << setw(10) << (items.at(i).is_equity ? "Equity" : "Liability");
+        cout << "|$";
+        cout << setw(18) << items.at(i).amount;
+        cout << "|" << endl;
     }
+    cout << "--------------------------------------------------------|" << endl;
+    cout << left << setw(25) << "Total Assets" << " " << setw(10) << " " << " $" << setw(18) << total_assets << "|" << endl;
+    cout << "\n\n\n" << endl;
 }
 
 void assets_initiate(AssetsList* p_list)
@@ -100,6 +200,11 @@ void assets_initiate(AssetsList* p_list)
         else if (2 == choice)
         {
             // something
+            cout << "Please enter the name of the item you would like to change" << endl;
+            getline(cin, input, '\n');
+
+            name = input;
+            p_list->edit_item(name);
         }
         else if (3 == choice)
         {
