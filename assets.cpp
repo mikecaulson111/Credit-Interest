@@ -111,7 +111,25 @@ void AssetsList::edit_item(string name)
 
 void AssetsList::delete_item(string name)
 {
-    cout << name << endl;
+    int pos = -1;
+    string input;
+    
+    pos = is_item_in_list(name);
+    if (-1 != pos)
+    {
+        cout << "\n\nPlease confirm you would like to remove " << name << " from the list of items (Y/N)" << endl;
+        getline(cin, input, '\n');
+        if (input == "Y" || input == "y" || input == "Yes" || input == "YES" || input == "yes")
+        {
+            cout << "Removing from list......" << endl;
+            items.erase(items.begin() + pos);
+        }
+        else
+        {
+            cout << "Not removing..." << endl;
+        }
+    }
+
     calculate_total_assets();
 }
 
@@ -209,6 +227,11 @@ void assets_initiate(AssetsList* p_list)
         else if (3 == choice)
         {
             // something
+            cout << "Please enter the name of the item you would like to remove:" << endl;
+            getline(cin, input, '\n');
+
+            name = input;
+            p_list->delete_item(name);
         }
         else if (4 == choice)
         {
