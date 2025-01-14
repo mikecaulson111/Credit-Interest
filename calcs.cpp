@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cmath>
 #include "calcs.hpp"
+#include "utils.hpp"
 
 
 using namespace std;
@@ -181,6 +182,71 @@ void calculate_worst_taxes(double income, int filing_status)
     cout << "\n\n--------------------------------------------------------------------------" << endl;
     cout << "Total in worst case taxes (with standard deduction): $" << total_taxes << endl;
     cout << "-------------------------------------------------------------------------" << endl;
+}
+
+void calculate_break_even_single()
+{
+    double cost_to_you = 0;
+    double cost_to_consumer = 0;
+    double profit = 0;
+    double total_needed_to_sell = 0;
+    double fixed_costs = 0;
+    string input;
+
+    cout << "Please enter the cost of the product that you have to pay:\n$";
+    getline(cin, input, '\n');
+    if (is_numb(input, true))
+    {
+        cost_to_you = stod(input);
+    }
+    else
+    {
+        cout << "Please enter a number next time. Returning..." << endl;
+        return;
+    }
+
+    cout << "Please enter the price you sell the product for:\n$";
+    getline(cin, input, '\n');
+    if (is_numb(input, true))
+    {
+        cost_to_consumer = stod(input);
+    }
+    else
+    {
+        cout << "Please enter a number next time. Returning..." << endl;
+        return;
+    }
+
+    cout << "Please enter the Fixed Costs (such as rent and manager salary etc):\n$";
+    getline(cin, input, '\n');
+    if (is_numb(input, true))
+    {
+        fixed_costs = stod(input);
+    }
+    else
+    {
+        cout << "Please enter a number next time. Returning..." << endl;
+        return;
+    }
+    
+    cout << "Please enter the profit you were hoping to get (if you want only break even, enter $0):\n$";
+    getline(cin, input, '\n');
+    if (is_numb(input, true))
+    {
+        profit = stod(input);
+    }
+    else
+    {
+        cout << "Invalid argument, assuming Profit = $0" << endl;
+    }
+
+    // Calculation:
+    // profit = (fixed costs + profit) / (delta profit from item)
+    total_needed_to_sell = (fixed_costs + profit) / (cost_to_consumer - cost_to_you );
+
+    cout << "\n\n\nTotal number of units sold to cover fixed costs of $" << fixed_costs << " and get a profit of $" << profit << " is:" << endl;
+    cout << (int)total_needed_to_sell + 1 << " units\n\n\n" << endl;
+
 }
 
 

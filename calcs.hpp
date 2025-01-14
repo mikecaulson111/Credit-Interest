@@ -19,5 +19,6 @@ void calculate_total_with_fixed_payments(double loan_amt, double interest, doubl
 // void calculate_total_with_fixed_term(double loan_amt, double interest, double num_months);
 void calculate_minimum_monthly_with_fixed_term(double loan_amt, double interest, double num_months, bool amortization=false);
 void calculate_worst_taxes(double income, int filing_status=1);
+void calculate_break_even_single();
 
 #endif

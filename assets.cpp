@@ -181,7 +181,7 @@ void assets_initiate(AssetsList* p_list)
 
         if (1 == choice)
         {
-            // something
+            // Add item to list
             cout << "Please enter the name of the item here:" << endl;
             getline(cin, input, '\n');
             name = input;
@@ -217,7 +217,7 @@ void assets_initiate(AssetsList* p_list)
         }
         else if (2 == choice)
         {
-            // something
+            // Edit item in list
             cout << "Please enter the name of the item you would like to change" << endl;
             getline(cin, input, '\n');
 
@@ -226,7 +226,7 @@ void assets_initiate(AssetsList* p_list)
         }
         else if (3 == choice)
         {
-            // something
+            // Remove item from list
             cout << "Please enter the name of the item you would like to remove:" << endl;
             getline(cin, input, '\n');
 
@@ -235,7 +235,7 @@ void assets_initiate(AssetsList* p_list)
         }
         else if (4 == choice)
         {
-            // something
+            // Print Items
             p_list->print_items();
         }
         else if (5 == choice)

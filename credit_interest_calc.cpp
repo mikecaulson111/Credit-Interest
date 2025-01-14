@@ -33,8 +33,9 @@ int main(int argc, char* argv[]) {
         cout << "[1] Calculate total payoff amount" << endl;
         cout << "[2] Calculate minimum monthly payment with fixed term" << endl;
         cout << "[3] Worst case tax case (only standard deduction)" << endl;
-        cout << "[4] Assets list" << endl;
-        cout << "[5] Quit" << endl;
+        cout << "[4] Assets list and calculation" << endl;
+        cout << "[5] Calculate break even for single product" << endl; // TODO: would like to expand this to class with each having component parts
+        cout << "[6] Quit" << endl;
         getline(cin, input, '\n');
         if (is_numb(input)) {
             choice = stod(input);
@@ -153,9 +154,13 @@ int main(int argc, char* argv[]) {
         {
             assets_initiate(p_list);
         }
+        else if (5 == choice)
+        {
+            calculate_break_even_single();
+        }
         else
         {
-            if ( 0 != choice )
+            if ( 6 == choice )
             {
                 break;
             }
