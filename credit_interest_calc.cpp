@@ -14,13 +14,7 @@ int main() {
 
     // Global Variables for entire project
     string input = "";
-    double loan_amt = 0;
-    double interest_rate = 0.0;
-    double num_months = 0;
     int choice = 0;
-    bool amortization = false;
-    double income = 0;
-    int filing_status = 1;
 
     AssetsList* p_list = NULL;
 
@@ -46,60 +40,12 @@ int main() {
         }
         else if ( choice == 2 )
         {
-            cout << "Would you like the amortization schedule to display? (Y/N)" << endl;
-            getline(cin, input, '\n');
-            if (input == "Y" || input == "y" || input == "1")
-            {
-                amortization = true;
-            }
-            // Get input for principle loan amount
-            cout << "Please enter the current loan amount (can be integer or double):" << endl;
-            getline(cin, input, '\n');
-            if (is_numb(input, true))
-            {
-                loan_amt = stod(input);
-            }
-            
-            // Get input for interest rate
-            cout << "Please enter the interest rate (as a decimal i.e. 8.49):" << endl;
-            getline(cin, input, '\n');
-            if (is_numb(input, true))
-            {
-                interest_rate = stod(input);
-            }
-
-            // Get input for amount paid each month
-            cout << "Please enter the number of months that the loan term is for:" << endl;
-            getline(cin, input, '\n');
-            if (is_numb(input, true))
-            {
-                num_months = stod(input);
-            }
-
-            // get interest, loan and term
-            cout << "$" << std::fixed << std::setprecision(2) << loan_amt << " at " << interest_rate << "% for " << num_months << " months" << endl;
-
             // Perform calculation
-            calculate_minimum_monthly_with_fixed_term( loan_amt, interest_rate, num_months, amortization );
+            calculate_minimum_monthly_with_fixed_term();
         }
         else if (3 == choice)
         {
-            // Get the income number from user
-            cout << "Please enter your annual income (without commas):" << endl;
-            getline(cin, input, '\n');
-            if (is_numb(input, true))
-            {
-                income = stod(input);
-            }
-            
-            // Get filing status:
-            cout << "Please enter your Filing Status:\n[1] Single\n[2] Joint\n[3] Head of Household" << endl;
-            getline(cin, input, '\n');
-            if (is_numb(input, false))
-            {
-                filing_status = stoi(input);
-            }
-            calculate_worst_taxes(income, filing_status);
+            calculate_worst_taxes();
         }
         else if (4 == choice)
         {
@@ -120,7 +66,6 @@ int main() {
         cout << endl;
         cout << endl;
         cout << endl;
-        amortization = false;
     }
 
     return 0;

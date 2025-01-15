@@ -173,12 +173,52 @@ void calculate_total_with_fixed_payments()
 }
 
 
-void calculate_minimum_monthly_with_fixed_term(double loan_amt, double interest, double num_months, bool amortization)
+void calculate_minimum_monthly_with_fixed_term()
 {
     double top = 0;
     double bottom = 0;
+    double loan_amt = 0;
+    double interest = 0;
+    double num_months = 0;
+    bool amortization = false;
+    double decimal_interest = 0;
+    string input;
 
-    double decimal_interest = (interest / 100.) / 12.;
+    cout << "Would you like the amortization schedule to display? (Y/N)" << endl;
+    getline(cin, input, '\n');
+    if (input == "Y" || input == "y" || input == "1")
+    {
+        amortization = true;
+    }
+    // Get input for principle loan amount
+    cout << "Please enter the current loan amount (can be integer or double):" << endl;
+    getline(cin, input, '\n');
+    if (is_numb(input, true))
+    {
+        loan_amt = stod(input);
+    }
+    
+    // Get input for interest rate
+    cout << "Please enter the interest rate (as a decimal i.e. 8.49):" << endl;
+    getline(cin, input, '\n');
+    if (is_numb(input, true))
+    {
+        interest = stod(input);
+    }
+
+    // Get input for amount paid each month
+    cout << "Please enter the number of months that the loan term is for:" << endl;
+    getline(cin, input, '\n');
+    if (is_numb(input, true))
+    {
+        num_months = stod(input);
+    }
+
+    // get interest, loan and term
+    cout << "$" << std::fixed << std::setprecision(2) << loan_amt << " at " << interest << "% for " << num_months << " months" << endl;
+
+    decimal_interest = (interest / 100.) / 12.;
+
 
     top = decimal_interest * pow(1 + decimal_interest, num_months);
     bottom = pow(1 + decimal_interest, num_months) - 1;
@@ -192,11 +232,29 @@ void calculate_minimum_monthly_with_fixed_term(double loan_amt, double interest,
     cout << "--------------------------------------------------------------------------" << endl;
 }
 
-void calculate_worst_taxes(double income, int filing_status)
+void calculate_worst_taxes()
 {
     // double tincome = income;
     double total_taxes = 0;
     double temp = 0;
+    double income = 0;
+    int filing_status = -1;
+    string input;
+    // Get the income number from user
+    cout << "Please enter your annual income (without commas):" << endl;
+    getline(cin, input, '\n');
+    if (is_numb(input, true))
+    {
+        income = stod(input);
+    }
+    
+    // Get filing status:
+    cout << "Please enter your Filing Status:\n[1] Single\n[2] Joint\n[3] Head of Household" << endl;
+    getline(cin, input, '\n');
+    if (is_numb(input, false))
+    {
+        filing_status = stoi(input);
+    }
 
     // standard decuction:
     switch (filing_status)
