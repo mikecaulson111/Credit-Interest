@@ -16,7 +16,7 @@ int main() {
     string input = "";
     int choice = 0;
 
-    AssetsList* p_list = NULL;
+    AssetsList* p_list = new AssetsList();
 
     while (true)
     {
