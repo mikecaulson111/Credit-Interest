@@ -35,12 +35,10 @@ int main() {
 
         if (choice == 1)
         {
-            // Do the calculation
             calculate_total_with_fixed_payments();
         }
         else if ( choice == 2 )
         {
-            // Perform calculation
             calculate_minimum_monthly_with_fixed_term();
         }
         else if (3 == choice)
