@@ -455,7 +455,21 @@ void calculate_savings_goal()
     else
     {
         // calc how much to save each month to save x amount in y months
-        return;
+        cout << "Please enter the number of months you would like to save $" << goal << " in:" << endl;
+        getline(cin, input, '\n');
+        if (is_numb(input, false))
+        {
+            months = stoi(input);
+        }
+        else
+        {
+            cout << "Please only enter a number next time" << endl;
+        }
+
+        cout << "Note: currently this cannot factor in interest every month, so this will be the number of months if you dont include interest" << endl;
+
+        cout << "\n\n\n" << endl;
+        cout << "To save $" << goal << " in " << months << " months, you would need to save $" << goal / months << " per month" << endl;
     }
 }
 
