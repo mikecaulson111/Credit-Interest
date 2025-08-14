@@ -20,5 +20,6 @@ void calculate_total_with_fixed_payments();
 void calculate_minimum_monthly_with_fixed_term();
 void calculate_worst_taxes();
 void calculate_break_even_single();
+void calculate_savings_goal();
 
 #endif

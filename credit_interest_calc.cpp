@@ -26,7 +26,8 @@ int main() {
         cout << "[3] Worst case tax case (only standard deduction)" << endl;
         cout << "[4] Assets list and calculation" << endl;
         cout << "[5] Calculate break even for single product" << endl; // TODO: would like to expand this to class with each having component parts
-        cout << "[6] Quit" << endl;
+        cout << "[6] Savings goal calculator" << endl;
+        cout << "[7] Quit" << endl;
         getline(cin, input, '\n');
         if (is_numb(input)) {
             choice = stod(input);
@@ -53,9 +54,13 @@ int main() {
         {
             calculate_break_even_single();
         }
+        else if (6 == choice)
+        {
+            calculate_savings_goal();
+        }
         else
         {
-            if ( 6 == choice )
+            if ( 7 == choice )
             {
                 break;
             }

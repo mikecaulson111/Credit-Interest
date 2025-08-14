@@ -362,6 +362,103 @@ void calculate_break_even_single()
 
 }
 
+void calculate_savings_goal()
+{
+    string input;
+    int choice;
+    float goal;
+    float amount; // this is the amount they could save each month
+    float current = 0;
+    int months; // This is the amount of months we have
+    float interest = 0;
+
+    cout << "What would you like to do:" << endl;
+    cout << "[1] Calculate how long it will take to save x amount given a fixed amount to save every month" << endl;
+    cout << "[2] Calculate how much you would have to save each month to save x amount in y months" << endl;
+    getline(cin, input, '\n');
+    if (is_numb(input, false))
+    {
+        choice = stoi(input);
+    }
+    else
+    {
+        cout << "Invalid argument, returning back to beginning" << endl;
+        return;
+    }
+
+    while (true)
+    {
+        cout << "Please enter the total amount or goal you would like to save:" << endl;
+        getline(cin, input, '\n');
+        if (is_numb(input, true))
+        {
+            goal = stod(input);
+            break;
+        }
+        else
+        {
+            cout << "Please only enter a number\n\n" << endl;
+        }
+    }
+
+    if (goal <= 0)
+    {
+        cout << "Please enter a goal that is greater than 0" << endl;
+        return;
+    }
+
+    cout << "Would you like to include interest in calculation (you are saving money into a savings account)? (Y/N)" << endl;
+    getline(cin, input, '\n');
+    if (input == "Y" || input == "y" || input == "1")
+    {
+        cout << "Please enter the interest rate on the savings account as a decimal (i.e. 3.5):" << endl;
+        getline(cin, input, '\n');
+        if (is_numb(input, true))
+        {
+            interest = stod(input);
+            interest = interest / 100.0;
+        }
+        else
+        {
+            cout << "Invalid Argument, assuming interest of 0%" << endl;
+        }
+    }
+    
+    if (1 == choice)
+    {
+        // calc how long it will take to save x amount given fixed amount each month
+        while (true)
+        {
+            cout << "Please enter the total amount of money you can save each month:" << endl;
+            getline(cin, input, '\n');
+            if (is_numb(input, true))
+            {
+                amount = stod(input);
+                break;
+            }
+            else
+            {
+                cout << "Please only enter a number\n\n" << endl;
+            }
+        }
+
+        while (current < goal)
+        {
+            current = current + amount;
+            current = current + (current * interest / 12.0);
+            months += 1;
+        }
+        
+        cout << "\n\n\n" << endl;
+        cout << "Paying $" << amount << " per month with " << interest * 100.0 << "% interest per year, it will take " << months << " months to save $" << goal << endl;
+    }
+    else
+    {
+        // calc how much to save each month to save x amount in y months
+        return;
+    }
+}
+
 
 
 
