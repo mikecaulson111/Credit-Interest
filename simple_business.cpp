@@ -1,0 +1,103 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include "simple_business.hpp"
+#include "utils.hpp"
+
+
+using namespace std;
+
+void simple_business_initiate()
+{
+    bool running = true;
+    string input;
+    int choice = -1;
+    string input2;
+
+    Business* p_business = new Business();
+
+    cout << "The main purpose of this is to show you your inventory, and costs on a per month basis" << endl;
+    
+    while (running) {
+        cout << "What would you like to do:" << endl;
+        cout << "[1] Add Item to Business Inventory" << endl;
+        cout << "[2] Add Cost" << endl;
+        cout << "[3] Print Business information" << endl;
+        cout << "[4] Quit" << endl;
+
+        getline(cin, input, '\n');
+        if (is_numb(input, false)) {
+            choice = stoi(input);
+        }
+
+        if (1 == choice) {
+            // Add an item to inventory
+            string name;
+            double buy_price = 0.;
+            double sell_price = 0.;
+            int num_of_products = 0;
+            cout << "Please enter the name of the item" << endl;
+            getline(cin, input2, '\n');
+            name =  input2;
+            cout << "Enter the price you pay for each " << name << "\n$";
+            getline(cin, input2, '\n');
+            if (is_numb(input2, true)) {
+                buy_price = stod(input2);
+            }
+            cout << "Enter the price you sell each " << name << " for:\n$";
+            getline(cin, input2, '\n');
+            if (is_numb(input2, true)) {
+                sell_price = stod(input2);
+            }
+            cout << "Enter the number of " << name << " in stock\n#";
+            getline(cin, input2, '\n');
+            if (is_numb(input2, false)) {
+                num_of_products = stoi(input2);
+            }
+
+            p_business->add_item(name, sell_price, buy_price, num_of_products);
+        } else if (2 == choice) {
+            // Add a fixed (expected) cost
+        } else if (3 == choice) {
+            // Display the business overview
+            p_business->print_business();
+        } else if (4 == choice) {
+            running = false;
+            break;
+        }
+        choice = -1;
+    }
+}
+
+void Business::add_item(string name, double sell_price, double buy_price, int num_of_items) {
+    BUSINESS_ITEM_S item = {
+        .name = name,
+        .sell_price = sell_price,
+        .buy_price = buy_price,
+        .num_of_product = num_of_items
+    };
+    items.push_back(item);
+}
+
+void Business::print_business() {
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << "ITEMS: " << endl;
+    for (size_t i = 0; i < items.size(); i++) {
+        BUSINESS_ITEM_S item = items.at(i);
+        cout << item.name << " buy: $" << item.buy_price << " sell for $" << item.sell_price << " with #" << item.num_of_product << " " << item.name << "(s)" << endl;
+    }
+    cout << "-----------------------------------------------------------------------------" << endl;
+    cout << "COSTS:" << endl;
+    for (size_t i = 0; i < costs.size(); i++) {
+        BUSINESS_COST_S cost = costs.at(i);
+        cout << cost.name << " $" << cost.cost << endl;
+    }
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+}
+
