@@ -4,6 +4,7 @@
 #include <cstring>
 #include "calcs.hpp"
 #include "assets.hpp"
+#include "simple_business.hpp"
 #include "utils.hpp"
 
 using namespace std;
@@ -27,7 +28,8 @@ int main() {
         cout << "[4] Assets list and calculation" << endl;
         cout << "[5] Calculate break even for single product" << endl; // TODO: would like to expand this to class with each having component parts
         cout << "[6] Savings goal calculator" << endl;
-        cout << "[7] Quit" << endl;
+	cout << "[7] Simple business calulations" << endl; // This is supposed to be a follow up to the break even
+        cout << "[8] Quit" << endl;
         getline(cin, input, '\n');
         if (is_numb(input)) {
             choice = stod(input);
@@ -58,9 +60,13 @@ int main() {
         {
             calculate_savings_goal();
         }
+        else if (7 == choice)
+        {
+            simple_business_initiate(); // TODO: possibly send in a list like assets above
+        }
         else
         {
-            if ( 7 == choice )
+            if ( 8 == choice )
             {
                 break;
             }
