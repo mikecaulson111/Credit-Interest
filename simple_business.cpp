@@ -100,12 +100,15 @@ void Business::add_cost(string name, double _cost) {
 }
 
 void Business::print_business() {
+    double total_potential = 0.;
     cout << "\n\n\n" << endl;
     cout << "ITEMS: " << endl;
-    cout << left << setw(25) << "NAME" << "|" << setw(15) << "PURCHASE PRICE" << "|" << setw(15) << "SELL PRICE" << "|" << setw(15) << "# in inventory" << "|" << endl;
+    cout << left << setw(25) << "NAME" << "|" << setw(15) << "PURCHASE PRICE" << "|" << setw(15) << "SELL PRICE" << "|" << setw(15) << "# in inventory" << "|" << setw(15) << "expected profit" << "|" << endl;
     for (size_t i = 0; i < items.size(); i++) {
         BUSINESS_ITEM_S item = items.at(i);
-        cout << "-------------------------|---------------|---------------|---------------|" << endl;
+        double potential_profit = (item.sell_price - item.buy_price) * item.num_of_product;
+        total_potential += potential_profit;
+        cout << "-------------------------|---------------|---------------|---------------|---------------|" << endl;
         cout << left << setw(25) << item.name;
         cout << "|$";
         cout << setw(14) << item.buy_price;
@@ -113,9 +116,16 @@ void Business::print_business() {
         cout << setw(14) << item.sell_price;
         cout << "|";
         cout << setw(15) << item.num_of_product;
+        cout << "|$";
+        cout << (potential_profit > 0 ? COLOR_GREEN : COLOR_RED) << setw(14) << potential_profit << COLOR_RESET;
         cout << "|" << endl;
+        
     }
-    cout << "-----------------------------------------------------------------------------" << endl;
+    cout << "------------------------------------------------------------------------------------------" << endl;
+    cout << left << setw(35) << "Total Potential/Expected Profit:";
+    cout << "|$";
+    cout << (total_potential > 0 ? COLOR_GREEN : COLOR_RED) << setw(14) << total_potential << COLOR_RESET << "|" << endl;
+    cout << "------------------------------------------------------------------------------------------" << endl;
     cout << "COSTS:" << endl;
     for (size_t i = 0; i < costs.size(); i++) {
         BUSINESS_COST_S cost = costs.at(i);
