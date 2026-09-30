@@ -101,6 +101,8 @@ void Business::add_cost(string name, double _cost) {
 
 void Business::print_business() {
     double total_potential = 0.;
+    double total_cost = 0.;
+    double total_profit = 0.;
     cout << "\n\n\n" << endl;
     cout << "ITEMS: " << endl;
     cout << left << setw(25) << "NAME" << "|" << setw(15) << "PURCHASE PRICE" << "|" << setw(15) << "SELL PRICE" << "|" << setw(15) << "# in inventory" << "|" << setw(15) << "expected profit" << "|" << endl;
@@ -126,11 +128,25 @@ void Business::print_business() {
     cout << "|$";
     cout << (total_potential > 0 ? COLOR_GREEN : COLOR_RED) << setw(14) << total_potential << COLOR_RESET << "|" << endl;
     cout << "------------------------------------------------------------------------------------------" << endl;
-    cout << "COSTS:" << endl;
+    cout << "\n\nCOSTS:" << endl;
+    cout << left << setw(25) << "NAME" << "|" << setw(15) << "COST" << "|" << endl;
     for (size_t i = 0; i < costs.size(); i++) {
         BUSINESS_COST_S cost = costs.at(i);
-        cout << cost.name << " $" << cost.cost << endl;
+        total_cost += cost.cost;
+        // cout << cost.name << " $" << cost.cost << endl;
+        cout << "-------------------------|---------------|" << endl;
+        cout << left << setw(25) << cost.name;
+        cout << "|$";
+        cout << setw(14) << cost.cost;
+        cout << "|" << endl;
     }
+    total_profit = total_potential - total_cost;
+    cout << "------------------------------------------" << endl;
+    cout << left << setw(25) << "Total Cost:";
+    cout << "|$" << COLOR_RED << setw(14) << total_cost << COLOR_RESET << "|" << endl;
+    cout << "\n\n\n" << endl;
+    cout << left << setw(40) << "Total profit if all items are sold:";
+    cout << "|$" << (total_profit > 0 ? COLOR_GREEN : COLOR_RED) << setw(14) << total_profit << COLOR_RESET << "|" <<  endl;
     cout << "\n\n\n" << endl;
 }
 
