@@ -58,6 +58,18 @@ void simple_business_initiate()
             p_business->add_item(name, sell_price, buy_price, num_of_products);
         } else if (2 == choice) {
             // Add a fixed (expected) cost
+            string name;
+            double cost = 0.;
+            cout << "Please enter the name of the cost:" << endl;
+            getline(cin, input2, '\n');
+            name = input2;
+            cout << "Enter the cost of " << name << " per month:\n$";
+            getline(cin, input2, '\n');
+            if (is_numb(input2, true)) {
+                cost = stod(input2);
+            }
+
+            p_business->add_cost(name, cost);
         } else if (3 == choice) {
             // Display the business overview
             p_business->print_business();
@@ -79,15 +91,29 @@ void Business::add_item(string name, double sell_price, double buy_price, int nu
     items.push_back(item);
 }
 
+void Business::add_cost(string name, double _cost) {
+    BUSINESS_COST_S cost = {
+        .name = name,
+        .cost = _cost
+    };
+    costs.push_back(cost);
+}
+
 void Business::print_business() {
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
+    cout << "\n\n\n" << endl;
     cout << "ITEMS: " << endl;
+    cout << left << setw(25) << "NAME" << "|" << setw(15) << "PURCHASE PRICE" << "|" << setw(15) << "SELL PRICE" << "|" << setw(15) << "# in inventory" << "|" << endl;
     for (size_t i = 0; i < items.size(); i++) {
         BUSINESS_ITEM_S item = items.at(i);
-        cout << item.name << " buy: $" << item.buy_price << " sell for $" << item.sell_price << " with #" << item.num_of_product << " " << item.name << "(s)" << endl;
+        cout << "-------------------------|---------------|---------------|---------------|" << endl;
+        cout << left << setw(25) << item.name;
+        cout << "|$";
+        cout << setw(14) << item.buy_price;
+        cout << "|$";
+        cout << setw(14) << item.sell_price;
+        cout << "|";
+        cout << setw(15) << item.num_of_product;
+        cout << "|" << endl;
     }
     cout << "-----------------------------------------------------------------------------" << endl;
     cout << "COSTS:" << endl;
@@ -95,9 +121,6 @@ void Business::print_business() {
         BUSINESS_COST_S cost = costs.at(i);
         cout << cost.name << " $" << cost.cost << endl;
     }
-    cout << endl;
-    cout << endl;
-    cout << endl;
-    cout << endl;
+    cout << "\n\n\n" << endl;
 }
 
